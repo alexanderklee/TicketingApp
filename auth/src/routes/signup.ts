@@ -24,7 +24,7 @@ router.post(
         throw new RequestValidationError(errors.array());
     }
 
-    console.log('Creating a user ......');
+    console.log('Creating a user ........');
     throw new DatabaseConnectionError();
 
     res.send({});
