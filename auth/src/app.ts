@@ -19,10 +19,16 @@ app.use(json());
 app.use(
     cookieSession({
         signed: false,
-        secure: true
+        // Need workaround for jest using unsecured testing
+        // By default, jest uses http so extracting node_env
+        // to flip "secure" value to false while in test mode
+        // and cookieSession / secure set to true will cause
+        // Set-Cookie not to be present.
+        secure: process.env.NODE_ENV !== 'test'
     })
 );
 
+// wire up middlewares
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
