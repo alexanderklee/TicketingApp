@@ -57,4 +57,4 @@ global.signin = async () => {
     
     const cookie = response.get('Set-Cookie');
     return cookie;
-}
+};
