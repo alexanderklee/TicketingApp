@@ -33,8 +33,8 @@ const userSchema = new mongoose.Schema( {
 }, 
 {
     toJSON: {
-        // modifying monoose's default json return
-        // values to exclude default values
+        // modifying mongoose's default json return
+        // behaviors/values to exclude default values
         transform(doc, ret) {
             ret.id = ret._id;
             delete ret._id;
