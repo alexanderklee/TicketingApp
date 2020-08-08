@@ -3,14 +3,15 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 const start = async () => {
+    // ENV vars are located in K8 depl files
     if(!process.env.JWT_KEY) {
         throw new Error('JWT_KEY needs to be defined!');
     }
 
-    if(!process.env.MONGO_URI) {
+    if (!process.env.MONGO_URI) {
         throw new Error('MONGO_URI must be defined');
     }
-    
+
     try { 
         await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true, 
