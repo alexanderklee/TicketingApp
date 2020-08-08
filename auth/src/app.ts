@@ -2,13 +2,12 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
+import { errorHandler, NotFoundError } from '@goosenest/common';
 
 import { currentUserRouter } from './routes/current-users';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
-import { errorHandler } from './middlewares/error-handler'
-import { NotFoundError } from './errors/not-found-error';
 
 const app = express();
 // need to let express know its behind ingress-nginx
