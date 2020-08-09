@@ -1,11 +1,22 @@
 import request from 'supertest';
 import { app } from '../../app';
+import mongoose from 'mongoose';
 
 it('returns a 404 if the ticket is not found', async () => {
-    await request(app)
-        .get('/api/tickets/faketicketID')
+    // Note to self: something is not right with this test. Always
+    // returning 404, which is right but the reasons do not seem
+    // correct. Will review later when I hit a wall.
+
+    // For this test, we need a valid mongoDB id and not a fake
+    // one.
+    const id = new mongoose.Types.ObjectId().toHexString();
+
+    const response = await request(app)
+        .get(`/api/tickets/${id}`)
         .send()
         .expect(404);
+    
+    //console.log(response);
 });
 
 it('returns the ticket if the ticket is found', async () => {

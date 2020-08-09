@@ -6,6 +6,8 @@ import { errorHandler, NotFoundError, currentUser } from '@goosenest/common';
 
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
+import { indexTicketRouter } from './routes/index';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 // need to let express know its behind ingress-nginx
@@ -29,6 +31,8 @@ app.use(
 app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(indexTicketRouter);
+app.use(updateTicketRouter);
 
 // capture all invalid routes and invalid http verbs
 app.all('*', async (req,res) => {
