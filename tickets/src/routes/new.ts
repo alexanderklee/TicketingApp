@@ -21,7 +21,7 @@ router.post('/api/tickets',
         const ticket = Tickets.build({
             title, 
             price,
-            userId: req.currentUser!.id
+            userId: req.currentUser!.id,
         });
         await ticket.save();
 
