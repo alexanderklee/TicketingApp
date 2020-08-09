@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@goosenest/common';
-import { Ticket } from '../models/tickets';
+import { Tickets } from '../models/tickets';
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.post('/api/tickets',
     validateRequest,
     async (req: Request, res: Response) => {
         const { title, price } = req.body;
-        const ticket = Ticket.build({
+        const ticket = Tickets.build({
             title, 
             price,
             userId: req.currentUser!.id

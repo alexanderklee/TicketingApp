@@ -5,6 +5,7 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@goosenest/common';
 
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
 
 const app = express();
 // need to let express know its behind ingress-nginx
@@ -27,6 +28,7 @@ app.use(
 // wire up middlewares
 app.use(currentUser);
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 // capture all invalid routes and invalid http verbs
 app.all('*', async (req,res) => {
