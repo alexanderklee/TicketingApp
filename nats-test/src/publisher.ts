@@ -5,7 +5,7 @@ console.clear();
 // note: this test requires k8 port-forwarding
 // kubectl port-forward <nats-pod-name> 4222:4222
 const stan = nats.connect('ticketing','abc', {
-    url: 'http://gittix.dev:4222'
+    url: 'http://gittix.dev:4222',
 });
 
 stan.on('connect', () => {

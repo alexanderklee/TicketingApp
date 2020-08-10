@@ -4,7 +4,7 @@ import { randomBytes } from 'crypto';
 console.clear();
 
 const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), {
-    url: 'http://gittix.dev:4222'
+    url: 'http://gittix.dev:4222',
 });
 
 stan.on('connect', () => {
@@ -17,13 +17,14 @@ stan.on('connect', () => {
 
     const options = stan
         .subscriptionOptions()
-        .setManualAckMode(true);
+        .setManualAckMode(true)
+        .setDeliverAllAvailable()
+        .setDurableName('accounting-service');
 
     const subscription = stan.subscribe(
-        'ticket:created', 
-        'orders-service-queue-group',
-        options
-    );
+        'ticket:created',
+        'queue-group-name',
+        options);
 
     subscription.on('message', (msg: Message) => {
         //console.log('Message received');
