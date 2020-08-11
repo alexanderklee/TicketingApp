@@ -10,15 +10,20 @@ const stan = nats.connect('ticketing','abc', {
     url: 'http://gittix.dev:4222',
 });
 
-stan.on('connect', () => {
+// created a promise for to allow async/allow on publisher
+stan.on('connect', async () => {
     console.log('Publisher connected to NATS');
 
     const publisher = new TicketCreatedPublisher(stan);
-    publisher.publish({
-        id: '123',
-        title: 'concert',
-        price: 20
-    });
+    try {
+        await publisher.publish({
+            id: '123',
+            title: 'concert',
+            price: 20
+        });
+    } catch (err) {
+        console.error(err);
+    }
 
 //    const data = JSON.stringify({
 //        id: '123',

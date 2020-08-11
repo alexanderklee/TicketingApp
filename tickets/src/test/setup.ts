@@ -13,6 +13,10 @@ declare global {
     }
 }
 
+// Make sure test scripts uses the mock nats-wrapper 
+// and not the real nats-wrapper
+jest.mock('../nats-wrapper');
+
 let mongo: any;
 // adding before hook to start mongo and
 // get mongo URI and connect mongoose to it
@@ -31,6 +35,9 @@ beforeAll(async () => {
 // adding hook to delete any existing recods in 
 // mongo
 beforeEach(async () => {
+    // For testing purposes, clear jests counters for mock
+    // libraries
+    jest.clearAllMocks();
     const collections = await mongoose.connection.db.collections();
 
     for (let collection of collections) {

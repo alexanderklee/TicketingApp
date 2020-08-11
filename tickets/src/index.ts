@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
-
 import { app } from './app';
+import { natsWrapper } from './nats-wrapper';
 
+// Initialize MongoDb connection. Leverage mongoose to maintain
+// global mongodb connection context for our application
 const start = async () => {
     // ENV vars are located in K8 depl files
     if(!process.env.JWT_KEY) {
@@ -12,7 +14,34 @@ const start = async () => {
         throw new Error('MONGO_URI must be defined');
     }
 
+    if (!process.env.NATS_CLIENT_ID) {
+        throw new Error('NATS_CLIENT_ID must be defined');
+    }
+
+    if (!process.env.NATS_URL) {
+        throw new Error('NATS_URL must be defined');
+    }
+
+    if (!process.env.NATS_CLUSTER_ID) {
+        throw new Error('NATS_CLUSTER_ID must be defined');
+    }
+
     try { 
+        await natsWrapper.connect(
+            process.env.NATS_CLUSTER_ID,
+            process.env.NATS_CLIENT_ID,
+            process.env.NATS_URL,
+        );
+
+        // Setup close routines to make sure NATS exits gracefully
+        natsWrapper.client.on('close', () => {
+            console.log('NATS connection closed!');
+            process.exit();
+        });
+        process.on('SIGINT', () => natsWrapper.client.close());
+        process.on('SIGTERM', () => natsWrapper.client.close());
+
+        // Connect to mongodb
         await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true, 
             useUnifiedTopology: true,
