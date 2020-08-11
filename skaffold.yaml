@@ -13,7 +13,7 @@ build:
         - image: us.gcr.io/gittix-dev-285421/auth
           context: auth
           docker: 
-            dockerfile: dockerfile
+            dockerfile: Dockerfile
           sync:
             manual:
                 - src: 'src/**/*.ts'
@@ -21,7 +21,7 @@ build:
         - image: us.gcr.io/gittix-dev-285421/client
           context: client
           docker: 
-            dockerfile: dockerfile
+            dockerfile: Dockerfile
           sync:
             manual:
                 - src: '**/*.js'
@@ -29,7 +29,15 @@ build:
         - image: us.gcr.io/gittix-dev-285421/tickets
           context: tickets
           docker: 
-            dockerfile: dockerfile
+            dockerfile: Dockerfile
+          sync:
+            manual:
+                - src: 'src/**/*.ts'
+                  dest: .
+        - image: us.gcr.io/gittix-dev-285421/orders
+          context: orders
+          docker: 
+            dockerfile: Dockerfile
           sync:
             manual:
                 - src: 'src/**/*.ts'
