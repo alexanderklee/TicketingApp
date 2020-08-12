@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { Password } from '../services/password';
 
 // An interface that describes the properties 
-// that are required to create a new user
+// that a User Model has
 interface UserAttrs {
     email: string;
     password: string;
@@ -15,7 +15,7 @@ interface UserModel extends mongoose.Model<UserDoc> {
 }
 
 // An interface that describes the properties
-// that a User Model has
+// that a User Document has
 interface UserDoc extends mongoose.Document {
     email: string;
     password: string;
