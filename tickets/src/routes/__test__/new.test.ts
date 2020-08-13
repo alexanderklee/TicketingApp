@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
-import { Tickets } from '../../models/tickets';
+import { Ticket } from '../../models/ticket';
 import { natsWrapper } from '../../nats-wrapper';
 
 it('has a route handler listening to /api/tickets for post requests', async () => {
@@ -76,7 +76,7 @@ it('creates a ticket with valid inputs', async () => {
 
     // Get all tickets - should be 0 tickets upon init
     // set a test title
-    let tickets = await Tickets.find({});
+    let tickets = await Ticket.find({});
     expect(tickets.length).toEqual(0);
 
     const title = 'Erasure';
@@ -92,7 +92,7 @@ it('creates a ticket with valid inputs', async () => {
 
     // verify new ticket was created
     // verify record contains expected title and price
-    tickets = await Tickets.find({});
+    tickets = await Ticket.find({});
     expect(tickets.length).toEqual(1);
     expect(tickets[0].price).toEqual(20);
     expect(tickets[0].title).toEqual(title);

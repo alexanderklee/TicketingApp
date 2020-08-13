@@ -3,13 +3,14 @@ import { Subjects, Listener, TicketCreatedEvent } from '@goosenest/common';
 import { Ticket } from '../../models/ticket';
 import { queueGroupName } from './queue-group-name';
 
-export class TicketCreateListener extends Listener<TicketCreatedEvent> {
+export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
     subject: Subjects.TicketCreated = Subjects.TicketCreated;
     queueGroupName = queueGroupName;
 
     async onMessage(data: TicketCreatedEvent['data'], msg: Message) {
-        const { title, price } = data;
+        const { id, title, price } = data;
         const ticket = Ticket.build({
+            id,
             title, 
             price,
         });

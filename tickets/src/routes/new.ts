@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@goosenest/common';
-import { Tickets } from '../models/tickets';
+import { Ticket } from '../models/ticket';
 import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
@@ -20,7 +20,7 @@ router.post('/api/tickets',
     validateRequest,
     async (req: Request, res: Response) => {
         const { title, price } = req.body;
-        const ticket = Tickets.build({
+        const ticket = Ticket.build({
             title, 
             price,
             userId: req.currentUser!.id,
@@ -33,6 +33,7 @@ router.post('/api/tickets',
             title: ticket.title,
             price: ticket.price,
             userId: ticket.userId,
+            version: ticket.version,
         });
 
         res.status(201).send(ticket);

@@ -6,7 +6,7 @@ import {
     requireAuth,
     NotAuthorizedError
 } from '@goosenest/common';
-import { Tickets } from '../models/tickets';
+import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
@@ -26,7 +26,7 @@ router.put(
     ],
     validateRequest,
     async (req: Request, res: Response) => {
-    const ticket = await Tickets.findById(req.params.id);
+    const ticket = await Ticket.findById(req.params.id);
 
     if(!ticket) {
         // throw a 404
@@ -48,6 +48,7 @@ router.put(
 
     new TicketUpdatedPublisher(natsWrapper.client).publish({
         id: ticket.id,
+        version: ticket.version,
         title: ticket.title,
         price: ticket.price,
         userId: ticket.userId,
