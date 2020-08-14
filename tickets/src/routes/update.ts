@@ -4,7 +4,8 @@ import {
     validateRequest,
     NotFoundError,
     requireAuth,
-    NotAuthorizedError
+    NotAuthorizedError,
+    BadRequestError
 } from '@goosenest/common';
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
@@ -31,6 +32,11 @@ router.put(
     if(!ticket) {
         // throw a 404
         throw new NotFoundError();
+    }
+
+    // Do not allow tickets to be modified if they're reserved
+    if (ticket.orderId) {
+        throw new BadRequestError('Cannot edit a reserved ticket');
     }
 
     if(ticket.userId !== req.currentUser!.id) {

@@ -12,6 +12,8 @@ interface TicketDoc extends mongoose.Document {
     price: number;
     userId: string;
     version: number;
+    // It is the presence of the orderId that determine that a
+    // ticket is reserved.
     orderId?: string;
 }
 
