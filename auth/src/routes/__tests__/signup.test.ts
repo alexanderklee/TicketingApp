@@ -19,7 +19,7 @@ it('returns a 400 with an invalid email', async () => {
             password: 'password'
         })
         .expect(400);
-})
+});
 
 it('returns a 400 with an invalid password', async () => {
     return request(app)
@@ -29,7 +29,7 @@ it('returns a 400 with an invalid password', async () => {
             password: 'b'
         })
         .expect(400);
-})
+});
 
 it('disallows duplicate emails', async () => {
     await request(app)
