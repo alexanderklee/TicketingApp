@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import { requireAuth, validateRequest, BadRequestError, NotFoundError, NotAuthorizedError, OrderStatus } from '@goosenest/common';
 import { stripe } from '../stripe';
 import { Order } from '../models/order';
+import { Payment } from '../models/payment';
 
 const router = express.Router();
 
@@ -36,11 +37,18 @@ router.post(
         // create Stripe charge request
         // mandatory requirements are currency and amount
         // amount must be in lowest currency unit (for USD its cents)
-        await stripe.charges.create({
+        const charge = await stripe.charges.create({
             currency: 'usd',
             amount: order.price * 100,
             source: token,
         });
+
+        const payment = Payment.build({
+            orderId: orderId,
+            stripeId: charge.id,
+        });
+
+        await payment.save();
 
         res.status(201).send({ success: true });
     }

@@ -17,6 +17,11 @@ declare global {
 // and not the real nats-wrapper
 jest.mock('../nats-wrapper');
 
+// Note: use this env var to test stripe api without using mocks.
+//       Review new.tests.ts for more information and implementation
+
+process.env.STRIPE_KEY = 'sk_test_51HGXG4AUnOTCQw5FcNjz6UIU99LE628dGewfXlxMGFryIJfKuL5L03CM4Fo02wJoTXz1OsxO6x5br9CeOxwOnMTr00pPoGxuk5';
+
 let mongo: any;
 // adding before hook to start mongo and
 // get mongo URI and connect mongoose to it
