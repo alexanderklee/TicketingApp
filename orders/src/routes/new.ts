@@ -11,7 +11,9 @@ const router = express.Router();
 
 // Consider using a kubernetes variable or storing this in
 // the database and provide a UI to an administrator to adjust
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+// Note: timer below is measures in seconds and matches the expiration
+//       timer as well. 
+const EXPIRATION_WINDOW_SECONDS = 30;
 
 // make sure orders post includes a valid order id and
 // not some arbitrary string which can pass express-
