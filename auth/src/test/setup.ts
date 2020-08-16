@@ -23,7 +23,7 @@ beforeAll(async () => {
 
     await mongoose.connect(mongoUri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     });
 });
 
