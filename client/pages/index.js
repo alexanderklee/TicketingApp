@@ -1,4 +1,4 @@
-import buildClient from '../api/build-client';
+//import buildClient from '../api/build-client';
 
 // this is a react component, not a js function (browser)
 // no state can be set whle in component space
@@ -11,10 +11,12 @@ const LandingPage = ( { currentUser }) => {
 // note: getInitialProps can get invoked on client when user
 //       navigating from one page to antoher while in the app.
 //       (eg., signin process   --> landing page)
-LandingPage.getInitialProps = async (context) => {
-    console.log('LANDING PAGE');
-    const { data } = await buildClient(context).get('/api/users/currentuser')
-    return data;
+LandingPage.getInitialProps = async (context, client, currentUser) => {
+    //console.log('LANDING PAGE');
+    //const { data } = await buildClient(context).get('/api/users/currentuser')
+    //return data;
+
+    return {};
 };
 
 export default LandingPage;
