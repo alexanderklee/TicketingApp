@@ -114,7 +114,7 @@ it('returns a 201 with valid inputs', async () => {
         orderId: order.id,
         stripeId: stripeCharge!.id,
     });
-    // payment var can either be object or null
+    // payment var can either be PaymentDoc or NULL (not undef)
     expect(payment).not.toBeNull();
 });
 
