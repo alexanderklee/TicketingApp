@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../app';
 
+jest.setTimeout(10000);
+
 // Need to declare signin as a global var to TS
 declare global {
     namespace NodeJS {
@@ -23,7 +25,7 @@ beforeAll(async () => {
 
     await mongoose.connect(mongoUri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     });
 });
 
