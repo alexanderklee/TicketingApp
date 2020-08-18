@@ -6,7 +6,7 @@ import axios from 'axios';
 // kubectl get namespace
 // kubectl get services -n ingress-nginx (LoadBalancer)
 
-export default ({ req }) => {
+const Named = ({ req }) => {
     if (typeof window === 'undefined') {
         // we are on server
         return axios.create({
@@ -21,3 +21,5 @@ export default ({ req }) => {
             });
         }
 };
+
+export default Named;

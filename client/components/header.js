@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default ({ currentUser }) => {
+const Named = ({ currentUser }) => {
     // Use this approach to toggle links depending on logged-in
     // state of the user and show only relevant links
     const links = [
@@ -30,4 +30,6 @@ export default ({ currentUser }) => {
             </ul>
         </div>
     </nav>
-}
+};
+
+export default Named;
