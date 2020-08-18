@@ -6,54 +6,56 @@ deploy:
             - ./infra/k8s/*
             - ./infra/k8s-dev/*
 build:
-  local:
-    push: false
-  artifacts:
-      - image: angrygoose/auth
-        context: auth
-        docker: 
-          dockerfile: Dockerfile
-        sync:
-          manual:
+#   local:
+#        push: false
+    googleCloudBuild:
+        projectId: gittix-dev-285421
+    artifacts:
+        - image: us.gcr.io/gittix-dev-285421/auth
+          context: auth
+          docker: 
+            dockerfile: Dockerfile
+          sync:
+            manual:
+                - src: 'src/**/*.ts'
+                  dest: .
+        - image: us.gcr.io/gittix-dev-285421/client
+          context: client
+          docker: 
+            dockerfile: Dockerfile
+          sync:
+            manual:
+                - src: '**/*.js'
+                  dest: .
+        - image: us.gcr.io/gittix-dev-285421/tickets
+          context: tickets
+          docker: 
+            dockerfile: Dockerfile
+          sync:
+            manual:
+                - src: 'src/**/*.ts'
+                  dest: .
+        - image: us.gcr.io/gittix-dev-285421/orders
+          context: orders
+          docker: 
+            dockerfile: Dockerfile
+          sync:
+            manual:
+                - src: 'src/**/*.ts'
+                  dest: .
+        - image: us.gcr.io/gittix-dev-285421/expiration
+          context: expiration
+          docker: 
+            dockerfile: Dockerfile
+          sync:
+            manual:
               - src: 'src/**/*.ts'
                 dest: .
-      - image: angrygoose/client
-        context: client
-        docker: 
-          dockerfile: Dockerfile
-        sync:
-          manual:
-              - src: '**/*.js'
-                dest: .
-      - image: angrygoose/tickets
-        context: tickets
-        docker: 
-          dockerfile: Dockerfile
-        sync:
-          manual:
+        - image: us.gcr.io/gittix-dev-285421/payments
+          context: payments
+          docker: 
+            dockerfile: Dockerfile
+          sync:
+            manual:
               - src: 'src/**/*.ts'
                 dest: .
-      - image: angrygoose/orders
-        context: orders
-        docker: 
-          dockerfile: Dockerfile
-        sync:
-          manual:
-              - src: 'src/**/*.ts'
-                dest: .
-      - image: angrygoose/expiration
-        context: expiration
-        docker: 
-          dockerfile: Dockerfile
-        sync:
-          manual:
-            - src: 'src/**/*.ts'
-              dest: .
-      - image: angrygoose/payments
-        context: payments
-        docker: 
-          dockerfile: Dockerfile
-        sync:
-          manual:
-            - src: 'src/**/*.ts'
-              dest: .

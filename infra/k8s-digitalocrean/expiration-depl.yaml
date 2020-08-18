@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: expiration
-          image: us.gcr.io/gittix-dev-285421/expiration
+          image: angrygoose/expiration
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
