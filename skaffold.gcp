@@ -11,7 +11,7 @@ build:
     googleCloudBuild:
         projectId: gittix-dev-285421
     artifacts:
-        - image: angrygoose/auth
+        - image: us.gcr.io/gittix-dev-285421/auth
           context: auth
           docker: 
             dockerfile: Dockerfile
@@ -19,7 +19,7 @@ build:
             manual:
                 - src: 'src/**/*.ts'
                   dest: .
-        - image: angrygoose/client
+        - image: us.gcr.io/gittix-dev-285421/client
           context: client
           docker: 
             dockerfile: Dockerfile
@@ -27,7 +27,7 @@ build:
             manual:
                 - src: '**/*.js'
                   dest: .
-        - image: angrygoose/tickets
+        - image: us.gcr.io/gittix-dev-285421/tickets
           context: tickets
           docker: 
             dockerfile: Dockerfile
@@ -35,7 +35,7 @@ build:
             manual:
                 - src: 'src/**/*.ts'
                   dest: .
-        - image: angrygoose/orders
+        - image: us.gcr.io/gittix-dev-285421/orders
           context: orders
           docker: 
             dockerfile: Dockerfile
@@ -43,7 +43,7 @@ build:
             manual:
                 - src: 'src/**/*.ts'
                   dest: .
-        - image: angrygoose/expiration
+        - image: us.gcr.io/gittix-dev-285421/expiration
           context: expiration
           docker: 
             dockerfile: Dockerfile
@@ -51,7 +51,7 @@ build:
             manual:
               - src: 'src/**/*.ts'
                 dest: .
-        - image: angrygoose/payments
+        - image: us.gcr.io/gittix-dev-285421/payments
           context: payments
           docker: 
             dockerfile: Dockerfile
