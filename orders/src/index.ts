@@ -9,6 +9,7 @@ import { PaymentCreatedListener } from './events/listeners/payment-created-liste
 // Initialize MongoDb connection. Leverage mongoose to maintain
 // global mongodb connection context for our application
 const start = async () => {
+    console.log('Starting ...');
     // ENV vars are located in K8 depl files
     if(!process.env.JWT_KEY) {
         throw new Error('JWT_KEY needs to be defined!');
