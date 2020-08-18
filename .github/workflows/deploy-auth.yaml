@@ -19,5 +19,5 @@ jobs:
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - run: doctl kubernetes kubeconfig save goosetickets
+      - run: doctl kubernetes cluster kubeconfig save goosetickets
       - run: kubectl rollout restart deployment auth-depl
